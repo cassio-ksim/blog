@@ -1,0 +1,15 @@
+<!-- publication_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Publicações</title>
+</head>
+<body>
+    <h1>Publicações</h1>
+    <ul>
+        {% for publication in publications %}
+            <li>{{ publication.title }} - {{ publication.created_at }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

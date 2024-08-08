@@ -1,0 +1,27 @@
+<!-- publications/detail.html -->
+
+<!-- Título da página -->
+<h1>{{ object.title }}</h1>
+
+<!-- Detalhes da publicação -->
+<ul>
+    <li><strong>Autor:</strong> {{ object.author }}</li>
+    <li><strong>Data de publicação:</strong> {{ object.publication_date }}</li>
+    <li><strong>Preço:</strong> {{ object.price }}</li>
+    <li><strong>Descrição:</strong> {{ object.description }}</li>
+</ul>
+
+<!-- Imagem da publicação (se houver) -->
+{% if object.image %}
+    <img src="{{ object.image.url }}" alt="Imagem da publicação">
+{% endif %}
+
+<!-- Links relacionados (se houver) -->
+{% if object.related_publications %}
+    <h2>Publicações relacionadas:</h2>
+    <ul>
+        {% for pub in object.related_publications %}
+            <li><a href="{% url 'publication_detail' pub.pk %}">{{ pub.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
