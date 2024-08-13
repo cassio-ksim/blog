@@ -6,6 +6,7 @@ class Publication(models.Model):
     date_publication = models.DateField()
     pub_text = models.TextField()
     title = models.CharField(max_length=255)
+    content = models.TextField()
 
     class Meta:
         db_table = 'publications'
