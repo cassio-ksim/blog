@@ -1,13 +1,23 @@
-<!-- base.html -->
+{% load static %} 
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div id="content">
+    <header>
+        <nav>
+            <!-- navigation links here -->
+        </nav>
+    </header>
+    <main>
         {% block content %}{% endblock %}
-    </div>
+    </main>
+    <footer>
+        <!-- footer content here -->
+    </footer>
 </body>
 </html>
