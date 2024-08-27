@@ -56,9 +56,10 @@
                     <div class="post-preview">
                         <h2>Publicações</h2>
                         <ul>
-                            {% for publication in publications %}
+                            {% for post in posts %}
                                 <li>
-                                    <a href="{% url 'publication_detail' publication.pk %}">{{ publication.title }}</a>
+                                    <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                                    <p>{{ post.description }}</p>
                                 </li>
                             {% endfor %}
                         </ul>

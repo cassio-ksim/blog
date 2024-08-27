@@ -1,6 +1,6 @@
 from django import forms
-from .models import Publication, Author
-from django.contrib.auth.forms import AuthenticationForm,  UserCreationForm
+from .models import Publication, Comment
+from django.contrib.auth.forms import UserCreationForm
 
 
 class PublicationForm(forms.ModelForm):
@@ -16,3 +16,13 @@ class LoginForm(forms.Form):
 class RegisterForm(UserCreationForm):
     class Meta:
         fields = ('username', 'email', 'password1', 'password2')
+
+
+class CommentForm(forms.Form):
+    text = forms.CharField(widget=forms.Textarea, max_length=4000)
+
+    def save(self, post, commit=True):
+        comment = Comment(post=post, text=self.cleaned_data['text'])
+        if commit:
+            comment.save()
+        return comment

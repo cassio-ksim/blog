@@ -4,7 +4,20 @@
   <h1>Criar Publicação</h1>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form.errors }}  <!-- Mostra erros do formulário -->
+    <label for="id_title">Título:</label>
+    {{ form.title }}  <!-- Campo título do formulário -->
+    <br><br>
+    <label for="id_content">Conteúdo:</label>
+    {{ form.content }}  <!-- Campo conteúdo do formulário -->
+    <br><br>
     <button type="submit">Criar</button>
   </form>
+  {% if errors %}
+    <ul>
+      {% for error in errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 {% endblock content %}

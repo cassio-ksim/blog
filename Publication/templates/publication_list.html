@@ -1,15 +1,16 @@
-<!-- publication_list.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de Publicações</title>
-</head>
-<body>
-    <h1>Publicações</h1>
-    <ul>
-        {% for publication in publications %}
-            <li>{{ publication.title }} - {{ publication.created_at }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Publicações</h1>
+  <ul>
+    {% for publication in publications %}
+      <li>
+        <h2>{{ publication.title }}</h2>
+        <p>{{ publication.content }}</p>
+        <p>Publicado por {{ publication.user.username }} em {{ publication.created_at }}</p>
+      </li>
+    {% empty %}
+      <li>Nenhuma publicação encontrada.</li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
