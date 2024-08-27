@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Publication
+from .models import Publication, Author
 from .forms import PublicationForm
 
 def index(request):
@@ -11,11 +11,13 @@ def publication_list(request):
 
 def create(request):
     if request.method == 'POST':
-        form = PublicationForm(request.POST, request=request)
+        form = PublicationForm(request.POST)  # Passa o request.user como parâmetro
         if form.is_valid():
-            form.save()
-            return redirect('publication_list.html')  # Redireciona para a lista de publicações após criar uma nova publicação
+            author = request.user
+            publication = form.save(commit=False)
+            publication.user = author
+            publication.save()
+            return redirect('publication_list')
     else:
-        form = PublicationForm(request=request)
+        form = PublicationForm(request.user)  # Passa o request.user como parâmetro
     return render(request, 'create.html', {'form': form})
-

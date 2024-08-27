@@ -6,19 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm,  UserCreationForm
 class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
-        fields = ('title', 'content', 'date_publication')
-
-    def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request', None)
-        super(PublicationForm, self).__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        post = super(Author, self).save(commit=False)
-        post.author = self.request.user
-        if commit:
-            post.save()
-        return post
-
+        fields = ('title', 'content',)  # Campos do formulário
 
 class LoginForm(forms.Form):
     username = forms.CharField(label='Usuário', max_length=255)
