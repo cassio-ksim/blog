@@ -2,22 +2,35 @@
 
 {% block content %}
   <h1>Criar Publicação</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.errors }}  <!-- Mostra erros do formulário -->
-    <label for="id_title">Título:</label>
-    {{ form.title }}  <!-- Campo título do formulário -->
-    <br><br>
-    <label for="id_content">Conteúdo:</label>
-    {{ form.content }}  <!-- Campo conteúdo do formulário -->
-    <br><br>
-    <button type="submit">Criar</button>
-  </form>
-  {% if errors %}
-    <ul>
-      {% for error in errors %}
-        <li>{{ error }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  <div class="container">
+    <form method="post" class="form-horizontal">
+      {% csrf_token %}
+      {{ form.errors }}  <!-- Mostra erros do formulário -->
+      <div class="form-group">
+        <label for="id_title" class="col-sm-2 control-label">Título:</label>
+        <div class="col-sm-10">
+          {{ form.title }}  <!-- Campo título do formulário -->
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="id_content" class="col-sm-2 control-label">Conteúdo:</label>
+        <div class="col-sm-10">
+          {{ form.content }}  <!-- Campo conteúdo do formulário -->
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Criar</button>
+          <button type="reset" class="btn btn-default">Limpar</button>
+        </div>
+      </div>
+    </form>
+    {% if errors %}
+      <ul>
+        {% for error in errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
 {% endblock content %}

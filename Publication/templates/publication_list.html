@@ -1,16 +1,19 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
   <h1>Publicações</h1>
-  <ul>
-    {% for publication in publications %}
-      <li>
-        <h2>{{ publication.title }}</h2>
-        <p>{{ publication.content }}</p>
-        <p>Publicado por {{ publication.user.username }} em {{ publication.created_at }}</p>
-      </li>
-    {% empty %}
-      <li>Nenhuma publicação encontrada.</li>
+  <div class="publication-list">
+    {% for post in posts %}
+      <div class="publication">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content|truncatewords:20 }}</p>
+        <p>Publicado por {{ post.user.username }} em {{ post.created_at|date:"d/m/Y" }}</p>
+        <div class="actions">
+          <a href="{% url 'edit_publication' post.pk %}" class="btn btn-primary">Editar</a>
+          <a href="{% url 'delete_publication' post.pk %}" class="btn btn-danger">Excluir</a>
+        </div>
+      </div>
+      <hr>
     {% endfor %}
-  </ul>
-{% endblock content %}
+  </div>
+{% endblock %}

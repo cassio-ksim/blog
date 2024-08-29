@@ -28,8 +28,8 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'index' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'create' %}">Criar publicação</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'publication_list' %}">Publicações</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'register' %}">Register / Login</a></li>
                     </ul>
                 </div>
@@ -54,16 +54,16 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <h2>Publicações</h2>
-                        <ul>
-                            {% for post in posts %}
-                                <li>
-                                    <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
-                                    <p>{{ post.description }}</p>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                        {% if publications %}                            
+                                {% for publication in publications %}
+                                    <li>
+                                        <h2>{{ publication.title }}</h2>
+                                        <p>{{ publication.content }}</p>
+                                        <p>Publicado por {{ publication.user.username }} em {{ publication.created_at }}</p>
+                                    </li>
+                                {% endfor %}                           
+                        {% endif %}
+                    </div>    
                 </div>
             </div>
             {% block content %}{% endblock content %}

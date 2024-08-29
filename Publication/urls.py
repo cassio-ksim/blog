@@ -5,7 +5,9 @@ from .views import (
     index,
     publication_list,
     create,
-    post_detail,
+    edit_publication,
+    delete_publication,
+
     
     
 )
@@ -23,6 +25,7 @@ urlpatterns = [
     path('create/', create, name='create'),
     path('login/', login_view, name='login'),
     path('register/', register_view, name='register'),
-    path('post/<pk>/', post_detail, name='post_detail')
+    path('publications/<pk>/edit/', edit_publication, name='edit_publication'),
+    path('publications/<pk>/delete/', delete_publication, name='delete_publication'),
     
 ]

@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Publication
-from .forms import PublicationForm, CommentForm
+from .forms import PublicationForm
 
 
 def index(request):
-    return render(request, 'base.html')
+    publications = Publication.objects.all()
+    return render(request, 'base.html', {'publications': publications})
+
 
 def publication_list(request):
     posts = Publication.objects.all()  # Recupera todos os objetos Publication
@@ -21,17 +24,25 @@ def create(request):
     else:
         form = PublicationForm()  # Crie uma instância do formulário sem parâmetros
     return render(request, 'create.html', {'form': form})
-    
-def post_detail(request, pk):
-    post = get_object_or_404(Publication, pk=pk)
-    comments = post.comment_set.all()
+
+@login_required
+def edit_publication(request, pk):
+    publication = Publication.objects.get(pk=pk)
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-            return redirect('post_detail', pk=pk)
-    else:
-        form = CommentForm()
-    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form})
+        publication.title = request.POST['title']
+        publication.content = request.POST['content']
+        publication.save()
+        return redirect('publication_list')
+    return render(request, 'edit_publication.html', {'publication': publication})
+
+@login_required
+def delete_publication(request, pk):
+    publication = Publication.objects.get(pk=pk)
+    if request.method == 'POST':
+        publication.delete()
+        return redirect('publication_list')
+    return render(request, 'delete_publication.html', {'publication': publication})
+
+    
+
+
